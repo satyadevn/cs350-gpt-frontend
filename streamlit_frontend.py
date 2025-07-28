@@ -16,7 +16,7 @@ if "history" not in st.session_state:
 if st.button ( "Submit" ) and user_id and query:
     with st.spinner ( "Waiting for Godot..."):
         res = requests.post (
-            "{API_URL}/query",
+            f"{API_URL}/query",
             json = { "user_id" : user_id, "query_text" : query }
             )
         if res.status_code == 200:
