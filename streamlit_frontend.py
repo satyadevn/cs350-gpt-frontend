@@ -1,5 +1,7 @@
-import  streamlit       as      st
+import  streamlit               as      st
 import  requests
+from    streamlit_js_eval       import  streamlit_js_eval
+import os
 
 from    datetime        import  datetime
 
@@ -12,6 +14,25 @@ API_URL = "https://cs350-gpt-backend.onrender.com/"
 # initialize session history
 if "history" not in st.session_state:
     st.session_state.history = []
+
+
+# recaptcha
+st.markdown(
+    f"""
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <form id="captcha-form">
+        <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+    </form>
+    """,
+    unsafe_allow_html=True,
+)
+
+result = streamlit_js_eval(js_expressions="document.getElementById('g-recaptcha-response')?.value")
+
+if st.button("Submit") and result:
+    captcha_token = result
+    
+# Send captcha_token to your backend if needed
     
 if st.button ( "Submit" ) and user_id and query:
     with st.spinner ( "Waiting for Godot..."):
