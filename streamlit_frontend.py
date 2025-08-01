@@ -21,7 +21,7 @@ st.markdown(
     f"""
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <form id="captcha-form">
-        <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+        <div class="g-recaptcha" data-sitekey="6LcXAZQrAAAAAIx35-MHiTWyBEdfRyIFYOUEQtJl""></div>
     </form>
     """,
     unsafe_allow_html=True,
@@ -29,12 +29,12 @@ st.markdown(
 
 result = streamlit_js_eval(js_expressions="document.getElementById('g-recaptcha-response')?.value")
 
-if st.button("Submit") and result:
+if st.button("Submit Captcha") and result:
     captcha_token = result
     
 # Send captcha_token to your backend if needed
     
-if st.button ( "Submit" ) and user_id and query:
+if st.button ( "Submit Query" ) and user_id and query:
     with st.spinner ( "Waiting for Godot..."):
         res = requests.post (
             f"{API_URL}/query",
