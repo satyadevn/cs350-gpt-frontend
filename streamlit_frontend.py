@@ -1,6 +1,7 @@
 import  streamlit               as      st
 import  requests
 from    streamlit_js_eval       import  streamlit_js_eval
+import  streamlit.components.v1 as components
 import os
 
 from    datetime        import  datetime
@@ -17,14 +18,14 @@ if "history" not in st.session_state:
 
 
 # recaptcha
-st.markdown(
+components.html(
     f"""
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <form id="captcha-form">
         <div class="g-recaptcha" data-sitekey="6LcXAZQrAAAAAIx35-MHiTWyBEdfRyIFYOUEQtJl""></div>
     </form>
     """,
-    unsafe_allow_html=True,
+    height=150,
 )
 
 result = streamlit_js_eval(js_expressions="document.getElementById('g-recaptcha-response')?.value")
@@ -38,7 +39,10 @@ if st.button ( "Submit Query" ) and user_id and query:
     with st.spinner ( "Waiting for Godot..."):
         res = requests.post (
             f"{API_URL}/query",
-            json = { "user_id" : user_id, "query_text" : query }
+            json = { "user_id" : user_id,
+                     "query_text" : query,
+                     "captcha_token" : captcha_token
+                    }
             )
         if res.status_code == 200:
             data = res.json ()
