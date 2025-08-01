@@ -20,9 +20,11 @@ if "history" not in st.session_state:
 # recaptcha
 components.html(
     f"""
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-    <form id="captcha-form">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <form id="captcha-form" action="?" method="POST"
         <div class="g-recaptcha" data-sitekey="6LcXAZQrAAAAAIx35-MHiTWyBEdfRyIFYOUEQtJl""></div>
+        <br/>
+        <input type="submit" value="Submit">
     </form>
     """,
     height=150,
@@ -54,7 +56,7 @@ if st.button ( "Submit Query" ) and user_id and query:
                 "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             })
             # st.markdown ( "### Response " )
-            # with st.expander ( "More..." ):
+            # with ts.expander ( "More..." ):
             #     st.write    ( data [ "response_text" ])
             # st.markdown ( f"**Input tokens:** { data [ 'input_tokens' ]} \n**Output tokens** { data [ 'output_tokens' ]}" )
         else:
