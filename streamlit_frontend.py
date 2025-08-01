@@ -17,25 +17,25 @@ if "history" not in st.session_state:
     st.session_state.history = []
 
 
-# recaptcha
-components.html(
-    f"""
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <form id="captcha-form" action="?" method="POST"
-        <div class="g-recaptcha" data-sitekey="6LcXAZQrAAAAAIx35-MHiTWyBEdfRyIFYOUEQtJl""></div>
-        <br/>
-        <input type="submit" value="Submit">
-    </form>
-    """,
-    height=150,
-)
+# # recaptcha
+# components.html(
+#     f"""
+#     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+#     <form id="captcha-form" action="?" method="POST"
+#         <div class="g-recaptcha" data-sitekey="6LcXAZQrAAAAAIx35-MHiTWyBEdfRyIFYOUEQtJl""></div>
+#         <br/>
+#         <input type="submit" value="Submit">
+#     </form>
+#     """,
+#     height=150,
+# )
 
-result = streamlit_js_eval(js_expressions="document.getElementById('g-recaptcha-response')?.value")
+# result = streamlit_js_eval(js_expressions="document.getElementById('g-recaptcha-response')?.value")
 
-if st.button("Submit Captcha") and result:
-    captcha_token = result
+# if st.button("Submit Captcha") and result:
+#     captcha_token = result
     
-# Send captcha_token to your backend if needed
+# # Send captcha_token to your backend if needed
     
 if st.button ( "Submit Query" ) and user_id and query:
     with st.spinner ( "Waiting for Godot..."):
@@ -43,7 +43,7 @@ if st.button ( "Submit Query" ) and user_id and query:
             f"{API_URL}/query",
             json = { "user_id" : user_id,
                      "query_text" : query,
-                     "captcha_token" : captcha_token
+#                     "captcha_token" : captcha_token
                     }
             )
         if res.status_code == 200:
