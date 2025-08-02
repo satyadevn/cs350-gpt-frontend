@@ -23,7 +23,7 @@ if st.button ( "Submit Query" ) and user_id and query:
             f"{API_URL}/query",
             json = { "user_id" : user_id,
                      "query_text" : query,
-                     "captcha_token" : "dummy"
+                     "captcha_code" : "dummy"
                     }
             )
         if res.status_code == 200:
