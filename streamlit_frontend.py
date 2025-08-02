@@ -1,49 +1,28 @@
-import  streamlit               as      st
-import  requests
-from    streamlit_js_eval       import  streamlit_js_eval
-import  streamlit.components.v1 as components
-import os
+import	streamlit	as	st
+import	requests
+from	datetime	import	datetime
+import	os
 
-from    datetime        import  datetime
+
+API_URL = "https://cs350-gpt-backend.onrender.com/"
 
 st.title ( "CS350 IITK Programming Languages TimeWaster " )
-
-user_id = st.text_input ( "Your ID" )
 query   = st.text_area  ( "Enter your query" )
-API_URL = "https://cs350-gpt-backend.onrender.com/"
+
 
 # initialize session history
 if "history" not in st.session_state:
     st.session_state.history = []
 
 
-# # recaptcha
-# components.html(
-#     f"""
-#     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-#     <form id="captcha-form" action="?" method="POST"
-#         <div class="g-recaptcha" data-sitekey="6LcXAZQrAAAAAIx35-MHiTWyBEdfRyIFYOUEQtJl""></div>
-#         <br/>
-#         <input type="submit" value="Submit">
-#     </form>
-#     """,
-#     height=150,
-# )
-
-# result = streamlit_js_eval(js_expressions="document.getElementById('g-recaptcha-response')?.value")
-
-# if st.button("Submit Captcha") and result:
-#     captcha_token = result
-    
-# # Send captcha_token to your backend if needed
     
 if st.button ( "Submit Query" ) and user_id and query:
     with st.spinner ( "Waiting for Godot..."):
         res = requests.post (
             f"{API_URL}/query",
-            json = { "user_id" : user_id,
+            json = { "user_id" : "test_student_001",
                      "query_text" : query,
-#                     "captcha_token" : "dummy"
+                     "captcha_token" : "dummy"
                     }
             )
         if res.status_code == 200:
@@ -55,10 +34,6 @@ if st.button ( "Submit Query" ) and user_id and query:
                 "output_tokens": data["output_tokens"],
                 "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             })
-            # st.markdown ( "### Response " )
-            # with ts.expander ( "More..." ):
-            #     st.write    ( data [ "response_text" ])
-            # st.markdown ( f"**Input tokens:** { data [ 'input_tokens' ]} \n**Output tokens** { data [ 'output_tokens' ]}" )
         else:
             st.error ( f"Error: { res.status_code }")
 
