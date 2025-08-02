@@ -14,13 +14,14 @@ query   = st.text_area  ( "Enter your query" )
 if "history" not in st.session_state:
     st.session_state.history = []
 
+user_id="test_student_001"
 
     
 if st.button ( "Submit Query" ) and user_id and query:
     with st.spinner ( "Waiting for Godot..."):
         res = requests.post (
             f"{API_URL}/query",
-            json = { "user_id" : "test_student_001",
+            json = { "user_id" : user_id,
                      "query_text" : query,
                      "captcha_token" : "dummy"
                     }
