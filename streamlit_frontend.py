@@ -4,6 +4,7 @@ from	datetime	import	datetime
 import	os
 
 
+API_URL = "http://127.0.0.1:8000"
 API_URL = "https://cs350-gpt-backend.onrender.com/"
 
 st.title ( "CS350 IITK Programming Languages TimeWaster " )
