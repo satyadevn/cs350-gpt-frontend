@@ -7,7 +7,7 @@ import  json
 
 
 
-API_URL = "https://cs350-gpt-backend.onrender.com/"
+API_URL = "http://127.0.0.1:8000"
 COOLDOWN=20 
 
 
